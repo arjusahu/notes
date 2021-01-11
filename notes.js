@@ -36,7 +36,7 @@ function showNotes()
     notesObj.forEach(function(element,index){
         if (element!="")
         {
-    html += `<div class="notecard card mx-2 my-2" style="width: 18rem;">
+    html += `<div class="notecard card mx-2 my-2" style="width: 21.5rem;">
            <div class="card-body">
             <h5 class="card-title">Note</h5>
             <p class="card-text"> ${element}</p>
@@ -51,7 +51,7 @@ function showNotes()
  notesEle.innerHTML=html;
  }
  else{
-    notesEle.innerHTML="Nothing to show add a note";
+    notesEle.innerHTML="<h4>Nothing to show, add a note</h4>";
     
  }
 }
