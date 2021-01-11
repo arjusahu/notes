@@ -3,6 +3,7 @@ showNotes();
 let addbtn=document.getElementById("addbtn");
 addbtn.addEventListener("click",function(e){
     let addtxt=document.getElementById("addtxt");
+    let addtitle=document.getElementById("addtitle");
     let notes=localStorage.getItem("notes");
     if (notes===null)
     {
@@ -12,9 +13,14 @@ addbtn.addEventListener("click",function(e){
     {
     notesObj=JSON.parse(notes);
     }
-    notesObj.push(addtxt.value);
+    let myObj={
+        title:addtitle.value,
+        text:addtxt.value
+    }
+    notesObj.push(myObj);
     localStorage.setItem("notes",JSON.stringify(notesObj));
     addtxt.value="";
+    addtitle.value="";
    // console.log(notesObj);
     showNotes();
 })
@@ -30,7 +36,7 @@ function showNotes()
     }
     else
     {
-    notesObj=JSON.parse(notes);
+    notesObj=JSON.parse(notes);//converts string to objects
     }
     let html="";
     notesObj.forEach(function(element,index){
@@ -38,8 +44,8 @@ function showNotes()
         {
     html += `<div class="notecard card mx-2 my-2" style="width: 21.5rem;">
            <div class="card-body">
-            <h5 class="card-title">Note</h5>
-            <p class="card-text"> ${element}</p>
+            <h5 class="card-title">${element.title}</h5>
+            <p class="card-text"> ${element.text}</p>
             <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete</button>
             </div>
             </div>`;
@@ -82,8 +88,9 @@ searchtxt.addEventListener("input",function(){
     let notecards=document.getElementsByClassName("notecard");
     Array.from(notecards).forEach(function(element){
         let cardtxt=element.getElementsByTagName("p")[0].innerText;
+        let cardtitle=element.getElementsByTagName("h5")[0].innerText;
        // console.log(cardtxt);
-        if (cardtxt.includes(inputval))
+        if (cardtxt.includes(inputval) || cardtitle.includes(inputval))
         {
         element.style.display="block";
         }
